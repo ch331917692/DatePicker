@@ -19,6 +19,8 @@
     <attr name="indicatorText" format="string"/>
     <attr name="indicatorTextSize" format="dimension"/>
     <attr name="indicatorTextColor" format="color"/>
+    <attr name="wheelCurtainHorizontalBorder" format="boolean" />
+    <attr name="wheelCurtainVerticalBorder" format="boolean"/>
     <declare-styleable name="WheelPicker">
         <attr name="halfVisibleItemCount"/>
         <attr name="itemTextSize"/>
@@ -35,6 +37,8 @@
         <attr name="wheelCurtain"/>
         <attr name="wheelCurtainColor"/>
         <attr name="wheelCurtainBorder" />
+        <attr name="wheelCurtainHorizontalBorder" />
+        <attr name="wheelCurtainVerticalBorder" />
         <attr name="wheelCurtainBorderColor"/>
         <attr name="indicatorText"/>
         <attr name="indicatorTextSize"/>
@@ -64,6 +68,8 @@
         <attr name="wheelCurtainColor"/>
         <attr name="wheelCurtainBorder"/>
         <attr name="wheelCurtainBorderColor"/>
+        <attr name="wheelCurtainHorizontalBorder" />
+        <attr name="wheelCurtainVerticalBorder" />
     </declare-styleable>
 
     <declare-styleable name="HourAndMinutePicker">

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.ycuwq.datepicker.R;
@@ -13,6 +14,7 @@ import com.ycuwq.datepicker.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 日期选择器
@@ -92,6 +94,8 @@ public class DatePicker extends LinearLayout implements YearPicker.OnYearSelecte
 		boolean isShowCurtainBorder = a.getBoolean(R.styleable.DatePicker_wheelCurtainBorder, true);
 		int curtainBorderColor = a.getColor(R.styleable.DatePicker_wheelCurtainBorderColor,
 				getResources().getColor(R.color.com_ycuwq_datepicker_divider));
+		boolean isCurtainHorizontalBorder = a.getBoolean(R.styleable.DatePicker_wheelCurtainHorizontalBorder, false);
+		boolean isCurtainVerticalBorder = a.getBoolean(R.styleable.DatePicker_wheelCurtainVerticalBorder, false);
 		a.recycle();
 
 		setTextSize(textSize);
@@ -108,7 +112,12 @@ public class DatePicker extends LinearLayout implements YearPicker.OnYearSelecte
 		setCurtainColor(curtainColor);
 		setShowCurtainBorder(isShowCurtainBorder);
 		setCurtainBorderColor(curtainBorderColor);
+		setCurtainHorizontalBorder(isCurtainHorizontalBorder);
+		setCurtainVerticalBorder(isCurtainVerticalBorder);
 	}
+
+
+
 	private void initChild() {
 		mYearPicker = findViewById(R.id.yearPicker_layout_date);
 		mYearPicker.setOnYearSelectedListener(this);
@@ -235,6 +244,16 @@ public class DatePicker extends LinearLayout implements YearPicker.OnYearSelecte
 		return getDate(format);
 	}
 
+	public Date getSelectDate(){
+		int year, month, day;
+		year = getYear();
+		month = getMonth();
+		day = getDay();
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month - 1, day);
+		return calendar.getTime();
+	}
+
 	/**
 	 * Gets date.
 	 *
@@ -242,14 +261,7 @@ public class DatePicker extends LinearLayout implements YearPicker.OnYearSelecte
 	 * @return the date
 	 */
 	public String getDate(DateFormat dateFormat) {
-		int year, month, day;
-		year = getYear();
-		month = getMonth();
-		day = getDay();
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(year, month - 1, day);
-
-		return dateFormat.format(calendar.getTime());
+		return dateFormat.format(getSelectDate());
 	}
 
 	/**
@@ -497,6 +509,24 @@ public class DatePicker extends LinearLayout implements YearPicker.OnYearSelecte
 		mYearPicker.setTextSize(textSize);
 		mMonthPicker.setTextSize(textSize);
 		mDayPicker.setTextSize(textSize);
+	}
+
+	public void setCurtainHorizontalBorder(boolean issCurtainHorizontalBorder) {
+		mYearPicker.setCurtainHorizontalBorder(issCurtainHorizontalBorder);
+		mMonthPicker.setCurtainHorizontalBorder(issCurtainHorizontalBorder);
+		mDayPicker.setCurtainHorizontalBorder(issCurtainHorizontalBorder);
+	}
+
+	public void setCurtainVerticalBorder(boolean isCurtainVerticalBorder) {
+		mYearPicker.setCurtainVerticalBorder(isCurtainVerticalBorder);
+		mMonthPicker.setCurtainVerticalBorder(isCurtainVerticalBorder);
+		mDayPicker.setCurtainVerticalBorder(isCurtainVerticalBorder);
+	}
+
+	public void setShow(boolean year, boolean month, boolean day){
+		mYearPicker.setVisibility(year ? View.VISIBLE : View.GONE);
+		mMonthPicker.setVisibility(month ? View.VISIBLE : View.GONE);
+		mDayPicker.setVisibility(day ? View.VISIBLE : View.GONE);
 	}
 
 	/**

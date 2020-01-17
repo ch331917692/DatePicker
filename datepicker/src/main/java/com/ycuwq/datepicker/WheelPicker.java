@@ -127,6 +127,9 @@ public class WheelPicker<T> extends View {
 	 */
 	private boolean mIsShowCurtainBorder;
 
+	private boolean mIsCurtainHorizontalBorder;
+	private boolean mIsCurtainVerticalBorder;
+
     /**
      * 幕布边框的颜色
      */
@@ -282,6 +285,8 @@ public class WheelPicker<T> extends View {
         mIndicatorText = a.getString(R.styleable.WheelPicker_indicatorText);
         mIndicatorTextColor = a.getColor(R.styleable.WheelPicker_indicatorTextColor, mSelectedItemTextColor);
         mIndicatorTextSize = a.getDimensionPixelSize(R.styleable.WheelPicker_indicatorTextSize, mTextSize);
+		mIsCurtainHorizontalBorder = a.getBoolean(R.styleable.WheelPicker_wheelCurtainHorizontalBorder, false);
+		mIsCurtainVerticalBorder = a.getBoolean(R.styleable.WheelPicker_wheelCurtainVerticalBorder, false);
 		a.recycle();
 	}
 
@@ -409,7 +414,15 @@ public class WheelPicker<T> extends View {
 			mPaint.setColor(mCurtainColor);
 			canvas.drawRect(mSelectedItemRect, mPaint);
 		}
-		if (mIsShowCurtainBorder) {
+
+		if(mIsCurtainHorizontalBorder){
+			mPaint.setStyle(Paint.Style.STROKE);
+			mPaint.setColor(mCurtainBorderColor);
+			canvas.drawLine(mDrawnRect.left, mDrawnRect.top, mDrawnRect.right, mDrawnRect.top, mPaint);
+			canvas.drawLine(mDrawnRect.left, mDrawnRect.bottom, mDrawnRect.right, mDrawnRect.bottom, mPaint);
+			canvas.drawLine(mSelectedItemRect.left, mSelectedItemRect.top, mSelectedItemRect.right, mSelectedItemRect.top, mPaint);
+			canvas.drawLine(mSelectedItemRect.left, mSelectedItemRect.bottom, mSelectedItemRect.right, mSelectedItemRect.bottom, mPaint);
+		} else if (mIsShowCurtainBorder) {
 			mPaint.setStyle(Paint.Style.STROKE);
 			mPaint.setColor(mCurtainBorderColor);
 			canvas.drawRect(mSelectedItemRect, mPaint);
@@ -963,5 +976,23 @@ public class WheelPicker<T> extends View {
 
 	public interface OnWheelChangeListener<T> {
 		void onWheelSelected(T item, int position);
+	}
+
+	public boolean isCurtainHorizontalBorder() {
+		return mIsCurtainHorizontalBorder;
+	}
+
+	public void setCurtainHorizontalBorder(boolean mIsCurtainHorizontalBorder) {
+		this.mIsCurtainHorizontalBorder = mIsCurtainHorizontalBorder;
+		postInvalidate();
+	}
+
+	public boolean isCurtainVerticalBorder() {
+		return mIsCurtainVerticalBorder;
+	}
+
+	public void setCurtainVerticalBorder(boolean mIsCurtainVerticalBorder) {
+		this.mIsCurtainVerticalBorder = mIsCurtainVerticalBorder;
+		postInvalidate();
 	}
 }
